@@ -37,15 +37,15 @@ public class CookieUtils {
             }
 //            分割到只剩 xxx.xxx:8080 格式
             final String[] domains = requestURL.split("\\.");
-            int lenght = domains.length;
-            if (lenght > 3) {
+            int length = domains.length;
+            if (length > 3) {
 //                在 Tomcat 8.0 以上版本前缀有 "." 会报错
-//                domainName = "." + domains[lenght - 3] + "." + domains[lenght - 2] + "." + domains[lenght - 1];
-                domainName = domains[lenght - 3] + "." + domains[lenght - 2] + "." + domains[lenght - 1];
-            } else if (lenght > 1 && lenght <= 3) {
+//                domainName = "." + domains[length - 3] + "." + domains[length - 2] + "." + domains[length - 1];
+                domainName = domains[length - 3] + "." + domains[length - 2] + "." + domains[length - 1];
+            } else if (length > 1 && length <= 3) {
 //                在 Tomcat 8.0 以上版本前缀有 "." 会报错
-//                domainName = "." + domains[lenght - 2] + "." + domains[lenght - 1];
-                domainName = domains[lenght - 2] + "." + domains[lenght - 1];
+//                domainName = "." + domains[length - 2] + "." + domains[length - 1];
+                domainName = domains[length - 2] + "." + domains[length - 1];
             } else {
                 domainName = requestURL;
             }
