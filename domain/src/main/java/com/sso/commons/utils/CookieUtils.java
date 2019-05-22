@@ -83,6 +83,7 @@ public class CookieUtils {
         if (cookieMaxAge > 0) {
             cookie.setMaxAge(cookieMaxAge);
         }
+//        设置可以访问该 cookie 的域名 xxx.xxx
         if (null != request) {
             String domainName = getDomainName(request);
             if (!"localhost".equals(domainName)) {
