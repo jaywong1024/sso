@@ -7,13 +7,25 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-  <display-name>domain</display-name>
+  <display-name>spring-session</display-name>
 
   <!-- 欢迎界面 -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+
+  <!-- 数据转换拦截器 -->
+  <filter>
+    <filter-name>SpringSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SpringSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 
   <!-- 1. 加载 Spring 容器 -->
   <context-param>
