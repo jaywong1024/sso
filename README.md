@@ -15,8 +15,11 @@
 客户端请求的时候，请求的服务器不是同一个 ip 地址、端口、域名、主机名的时候，都称为跨域
 
 ## domain模块
+### Session 跨域
+就是摒弃了系统（Tomcat）提供的 session，而使用自定义的类似 session 的机制来保存客户端数据的一种解决方案
 ### 方案
-通过设置 cookie 的 domain 来实现 cookie 的跨域传递。在 cookie 中传递一个自定义的 session_id，这个 session_id 是客户端的唯一标记。将这个唯一标记作为 key，将客户端需要保存的数据作为 value，在服务区进行保存（数据库保存或者 NoSQL 保存）。这种机制就是 Session 的跨域解决
+通过设置 cookie 的 domain 来实现 cookie 的跨域传递。在 cookie 中传递一个自定义的 session_id，这个 session_id 是客户端的唯一标记。将这个唯一标记作为 key，将客户端需要保存的数据作为 value，在服务区进行保存（数据库保存或者 NoSQL 保存）。这种机制就是 Session 的跨域解决<br>
+使用 cookie 跨域共享，是 session 跨域的一种解决方案。Cookie.setDomain() 为 cookie 设置了有效 域 范围，cookie.setPath() 为 cookie 设定有效 URL 范围。以上两个条件就实现了 cookie 跨域，这是在开发中性价比最高的跨域解决方案
 ### 测试
 在 hosts 文件内映射一些项目所在的服务器 ip 地址作为测试是否跨域成功<br>
 例如：<br>
