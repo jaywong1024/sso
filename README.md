@@ -14,7 +14,7 @@
 ### 跨域
 客户端请求的时候，请求的服务器不是同一个 ip 地址、端口、域名、主机名的时候，都称为跨域
 
-## domain模块
+## domain 模块
 ### Session 跨域
 就是摒弃了系统（Tomcat）提供的 session，而使用自定义的类似 session 的机制来保存客户端数据的一种解决方案
 ### 方案
@@ -29,3 +29,5 @@
 192.123.1.1 domain.com<br>
 <br>
 这些都可以通过跨域测试，因为在本模块中，session 跨域功能是通过 cookie 的 domain 和 path 来实现的<br>
+
+## spring-session 模块
