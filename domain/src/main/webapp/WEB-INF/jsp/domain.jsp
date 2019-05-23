@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>DoMain</title>
+    <title>Domain</title>
     <style>
         *{
             text-align: center;

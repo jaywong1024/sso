@@ -26,7 +26,7 @@ public class DoMainController {
 //        设置 cookie 的值
         CookieUtils.setCookie(request, response, cookieName, cookieValue, 0, encodeString);
         System.out.println("========== ========== ========== ==========");
-        return "test";
+        return "domain";
     }
 
 }
