@@ -32,7 +32,7 @@ domain 模块
 - 192.123.1.1 test.domain.com
 - 192.123.1.1 domain.com
 <br>
-这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过 cookie 的 domain 和 path 来实现的<br>
+这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过设置 cookie 的 domain 和 path 来实现的<br>
 
 spring-session 模块
 ---
