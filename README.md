@@ -25,14 +25,13 @@ domain 模块
 - 通过设置 cookie 的 domain 来实现 cookie 的跨域传递。在 cookie 中传递一个自定义的 session_id，这个 session_id 是客户端的唯一标记。将这个唯一标记作为 key，将客户端需要保存的数据作为 value，在服务区进行保存（数据库保存或者 NoSQL 保存）。这种机制就是 Session 的跨域解决
 - 使用 cookie 跨域共享，是 session 跨域的一种解决方案。Cookie.setDomain() 为 cookie 设置了有效 域 范围，cookie.setPath() 为 cookie 设定有效 URL 范围。以上两个条件就实现了 cookie 跨域，这是在开发中性价比最高的跨域解决方案
 ### 测试
-在 hosts 文件内映射一些项目所在的服务器 ip 地址作为测试是否跨域成功<br><br>
-#### 例如：<br>
+在 hosts 文件内映射一些项目所在的服务器 ip 地址作为测试是否跨域成功<br>
+#### 例如：
 - 192.123.1.1 www.domain.com<br>
 - 192.123.1.1 sso.domain.com<br>
 - 192.123.1.1 test.domain.com<br>
 - 192.123.1.1 domain.com<br>
-<br>
-这些都可以通过跨域测试，因为在本模块中，session 跨域功能是通过 cookie 的 domain 和 path 来实现的<br>
+这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过 cookie 的 domain 和 path 来实现的<br>
 
 spring-session 模块
 ---
