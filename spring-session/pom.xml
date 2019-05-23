@@ -114,6 +114,13 @@
             <!-- 只在编译和测试时使用 -->
             <scope>provided</scope>
         </dependency>
+
+        <!-- jdbc -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
     </dependencies>
 
     <build>
