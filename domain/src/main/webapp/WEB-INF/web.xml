@@ -55,7 +55,7 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  <!-- 6. 为 manong 建立映射 -->
+  <!-- 6. 为 domain 建立映射 -->
   <servlet-mapping>
     <servlet-name>domain</servlet-name>
     <url-pattern>/</url-pattern>
