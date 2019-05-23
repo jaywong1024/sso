@@ -27,10 +27,11 @@ domain 模块
 ### 测试
 在 hosts 文件内映射一些项目所在的服务器 ip 地址作为测试是否跨域成功<br>
 #### 例如：
-- 192.123.1.1 www.domain.com<br>
-- 192.123.1.1 sso.domain.com<br>
-- 192.123.1.1 test.domain.com<br>
-- 192.123.1.1 domain.com<br>
+- 192.123.1.1 www.domain.com
+- 192.123.1.1 sso.domain.com
+- 192.123.1.1 test.domain.com
+- 192.123.1.1 domain.com
+<br>
 这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过 cookie 的 domain 和 path 来实现的<br>
 
 spring-session 模块
