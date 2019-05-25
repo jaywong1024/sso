@@ -84,3 +84,24 @@ Nginx Session 共享
     - \# yum install -y zlib zlib-devel
 - OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
     - \# yum install -y openssl openss-devel
+
+#### 编译和安装
+
+	1. 官网下载 nginx 源码压缩包 http://nginx.org/en/download.html
+	2. 解压缩源码压缩包 # tar -zxvf nginx-x.x.x.tar.gz
+	3. 进入解压好的文件夹中 # cd nginx-x.x.x
+	4. 执行 configure 来实现 nginx 的配置，可以通过 ./configure --help 来查看详细参数，以下是常用配置信息：
+		a. --prefix=/usr/local/src/nginx-x.x.x ：安装位置目录
+		b. --pid-path=/var/run/nginx/nginx.pid：启动时进程描述文件保存的位置和进程文件名
+		c. --lock-path=/var/lock/nginx.lock：锁定文件
+		d. --error-log-path=/var/log/nginx/error.log：错误日志
+		e. --http-log-path=/var/log/nginx/access.log：访问日志
+		f. --with-http_gzip_static_module：压缩和解压缩模式
+		g. --http-client-body-temp-path=/home/temp/nginx/client：客户端请求体的临时文件的目录
+		h. --http-proxy--temp-path=/home/temp/nginx/proxy：存储从代理服务器接收到的数据的临时文件
+		i. --http-fastcgi-temp-path=/home/temp/nginx/fastcgi：存储从FastCGI的服务器接收到的数据的临时文件
+		j. --http-uwsgi-temp-path=/home/temp/nginx/uwsgi：储从uwsgi服务器接收到的数据的临时文件
+		k. --http-scgi-temp-path=/home/temp/nginx/scgi：存储从SCGI服务器接收到的数据的临时文件
+		l. 注意：nginx 可以创建临时目录，但不可以创建临时目录的父目录。需要有服务器权限的管理员进行父目录的创建，可以使用 -p 递归的创建目录 # mkdir -p /home/temp/nginx
+	5. 编译：将源代码编译成可执行文件 # make
+    6.安装：将编译完成后的可执行文件运行并安装，形成一个可运行应用程序 #make install
