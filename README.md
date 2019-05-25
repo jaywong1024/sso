@@ -59,3 +59,28 @@ Spring Session 共享（spring-session）
 
 Nginx Session 共享
 ---
+
+### Nginx 简介
+
+- Nginx 是使用 C 语言开发的服务器，可以提供的的服务有
+    - 静态 WEB 服务器（类似 Apache http server）
+    - 电子邮件代理服务器
+    - 反向代理服务器
+    - 虚拟主机
+- Nginx 服务器的特点
+    - 应用体积非常的小
+    - 对处理器和内存的占有很少
+    - 并发能力、负载能力强
+    
+### Nginx 安装
+
+#### 安装环境
+
+- GCC：安装 nginx 需要将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境则需要安装 gcc
+    - \# yum install -y gcc-c++
+- PCRE：PRRE（Perl Compatible Regular Expressions）是一个 Perl 库，包括 perl 兼容正则表达式的库。nginx 的 http 模块使用 perl 来解析正则表达式，所以需要在服务器上安装 PCRE 库
+    - \# yum install  -y pcre pcre-devel
+- ZLIB：zlib 库提供了很多种压缩和解压缩，nginx 使用 zlib 对 http 包内容进行 gzip，所以需要在服务器上安装 zlib 库
+    - \# yum install -y zlib zlib-devel
+- OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
+    - \# yum install -y openssl openss-devel
