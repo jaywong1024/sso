@@ -52,3 +52,10 @@ Spring Session 共享（spring-session）
 - 必须提供一个数据库用于存储数据，存储数据的表格由 spring-session 提供，在 spring-session-jdbc.jar 包 /org/springframework/session/jdbc 文件夹内。MySQL 数据库就使用 schema-mysql.sql 创建表格
     - spring-session 表：保存客户端 session 对象的表格
     - spring-session-attributes 表：保存客户端 session 中 attribute 属性数据的表格
+
+### 测试
+
+在客户端向服务器发起请求和服务器响应请求时，向 Session 中写入或者获取 Attribute，倘若数据库中成功写入 Attribute 或者从数据库中获取的 Attribute 是与另一个系统同步的，那么 Spring Session 就算共享成功啦
+
+Nginx Session 共享
+---
