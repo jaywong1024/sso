@@ -17,9 +17,9 @@
 ### 跨域
 - 客户端请求的时候，请求的服务器不是同一个 ip 地址、端口、域名、主机名的时候，都称为跨域
 
-domain 模块
+Session 跨域（domain）
 ---
-### Session 跨域
+### 简介
 - 就是摒弃了系统（Tomcat）提供的 session，而使用自定义的类似 session 的机制来保存客户端数据的一种解决方案
 ### 方案
 - 通过设置 cookie 的 domain 来实现 cookie 的跨域传递。在 cookie 中传递一个自定义的 session_id，这个 session_id 是客户端的唯一标记。将这个唯一标记作为 key，将客户端需要保存的数据作为 value，在服务区进行保存（数据库保存或者 NoSQL 保存）。这种机制就是 Session 的跨域解决
@@ -34,5 +34,21 @@ domain 模块
 <br>
 这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过设置 cookie 的 domain 和 path 来实现的<br>
 
-spring-session 模块
+Spring Session 共享（spring-session）
 ---
+
+### 简介
+
+- spring-session 技术是 Spring 提供的用于处理集群会话功效的解决方案
+- spring-session 技术是将用户 session 数据保存到第三方存储容器中（MySQL、Redis 等）
+- spring-session 技术是解决同域名下的多服务器集群 session 问题的，不能解决跨域 session 共享问题
+
+### 实现
+
+- 配置一个由 Spring 提供的 Filter（DelegatingFilterProxy），实现数据的拦截和保存，并转换为 spring-session 需要的会话对象
+- 定义用于提供 HttpSession 数据持久化操作的 Bean 对象（JdbcHttpSessionConfiguration）
+    - 对象定以后，可以配置数据库相关的操作设置，自动实现 HttpSession 数据的持久化操作（CRUD）
+    - 这里的 Bean 对象不需要 id 和 name，因为 DelegatingFilterProxy 是 byType 的
+- 必须提供一个数据库用于存储数据，存储数据的表格由 spring-session 提供，在 spring-session-jdbc.jar 包 /org/springframework/session/jdbc 文件夹内。MySQL 数据库就使用 schema-mysql.sql 创建表格
+    - spring-session 表：保存客户端 session 对象的表格
+    - spring-session-attributes 表：保存客户端 session 中 attribute 属性数据的表格
