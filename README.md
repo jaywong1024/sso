@@ -27,10 +27,10 @@ Session 跨域（domain）
 ### 测试
 在 hosts 文件内映射一些项目所在的服务器 ip 地址作为测试是否跨域成功<br>
 #### 例如：
-- 192.123.1.1 www.domain.com
-- 192.123.1.1 sso.domain.com
-- 192.123.1.1 test.domain.com
-- 192.123.1.1 domain.com
+    192.123.1.1 www.domain.com
+    192.123.1.1 sso.domain.com
+    192.123.1.1 test.domain.com
+    192.123.1.1 domain.com
 <br>
 这些域名都可以通过跨域测试，因为在本模块中，session 跨域功能是通过设置 cookie 的 domain 和 path 来实现的<br>
 
@@ -76,14 +76,14 @@ Nginx Session 共享
 
 #### 安装环境
 
-- GCC：安装 nginx 需要将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境则需要安装 gcc
-    - \# yum install -y gcc-c++
-- PCRE：PRRE（Perl Compatible Regular Expressions）是一个 Perl 库，包括 perl 兼容正则表达式的库。nginx 的 http 模块使用 perl 来解析正则表达式，所以需要在服务器上安装 PCRE 库
-    - \# yum install  -y pcre pcre-devel
-- ZLIB：zlib 库提供了很多种压缩和解压缩，nginx 使用 zlib 对 http 包内容进行 gzip，所以需要在服务器上安装 zlib 库
-    - \# yum install -y zlib zlib-devel
-- OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
-    - \# yum install -y openssl openss-devel
+    1.GCC：安装 nginx 需要将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境则需要安装 gcc
+        # yum install -y gcc-c++
+    2.PCRE：PRRE（Perl Compatible Regular Expressions）是一个 Perl 库，包括 perl 兼容正则表达式的库。nginx 的 http 模块使用 perl 来解析正则表达式，所以需要在服务器上安装 PCRE 库
+        # yum install  -y pcre pcre-devel
+    3.ZLIB：zlib 库提供了很多种压缩和解压缩，nginx 使用 zlib 对 http 包内容进行 gzip，所以需要在服务器上安装 zlib 库
+        # yum install -y zlib zlib-devel
+    4.OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
+        # yum install -y openssl openss-devel
 
 #### 编译和安装
 
