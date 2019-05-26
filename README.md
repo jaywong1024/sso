@@ -76,13 +76,13 @@ Nginx Session 共享
 
 #### 安装环境
 
-    1.GCC：安装 nginx 需要将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境则需要安装 gcc
+    1. GCC：安装 nginx 需要将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境则需要安装 gcc
         # yum install -y gcc-c++
-    2.PCRE：PRRE（Perl Compatible Regular Expressions）是一个 Perl 库，包括 perl 兼容正则表达式的库。nginx 的 http 模块使用 perl 来解析正则表达式，所以需要在服务器上安装 PCRE 库
+    2. PCRE：PRRE（Perl Compatible Regular Expressions）是一个 Perl 库，包括 perl 兼容正则表达式的库。nginx 的 http 模块使用 perl 来解析正则表达式，所以需要在服务器上安装 PCRE 库
         # yum install  -y pcre pcre-devel
-    3.ZLIB：zlib 库提供了很多种压缩和解压缩，nginx 使用 zlib 对 http 包内容进行 gzip，所以需要在服务器上安装 zlib 库
+    3. ZLIB：zlib 库提供了很多种压缩和解压缩，nginx 使用 zlib 对 http 包内容进行 gzip，所以需要在服务器上安装 zlib 库
         # yum install -y zlib zlib-devel
-    4.OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
+    4. OpenSSL：OpenSSL 是一个强大的安全套接字层密码库，囊括主要密码算法、常用的密钥和证书封装管理功能以及 SSL 协议，并提供丰富的应用程序供测试或其他目的使用。nginx 不仅支持 http 协议，还支持 https 协议（即在 SSL 协议上传输 http），所以需要在服务器上安装 OpenSSL
         # yum install -y openssl openss-devel
 
 #### 编译和安装
@@ -102,6 +102,19 @@ Nginx Session 共享
 		i. --http-fastcgi-temp-path=/home/temp/nginx/fastcgi：存储从FastCGI的服务器接收到的数据的临时文件
 		j. --http-uwsgi-temp-path=/home/temp/nginx/uwsgi：储从uwsgi服务器接收到的数据的临时文件
 		k. --http-scgi-temp-path=/home/temp/nginx/scgi：存储从SCGI服务器接收到的数据的临时文件
-		l. 注意：nginx 可以创建临时目录，但不可以创建临时目录的父目录。需要有服务器权限的管理员进行父目录的创建，可以使用 -p 递归的创建目录 # mkdir -p /home/temp/nginx
+		l. 注意：nginx 可以创建临时目录，但不可以创建临时目录的父目录。需要有服务器权限的管理员进行父目录的创建，可以使用 -p 递归地创建目录 # mkdir -p /home/temp/nginx
 	5. 编译：将源代码编译成可执行文件 # make
-    6.安装：将编译完成后的可执行文件运行并安装，形成一个可运行应用程序 #make install
+    6. 安装：将编译完成后的可执行文件运行并安装，形成一个可运行应用程序 #make install
+    
+#### Nginx 启动和停止
+	1. Nginx 在安装成功后，在安装位置下有三个文件夹
+		a. sbin 文件夹存放可执行文件
+		b. html 文件夹存放 nginx 提供的静态页面
+		c. conf 文件夹存放配置文件
+	2. 启动 nginx：# sbin/nginx 或者在 sbin 目录下 # ./nginx 
+		a. 在启动 nginx 时可以使用 -c 加载指定的配置文件，比如 # sbin/nginx -c /home/temp/nginx-temp.conf
+		b. 如果不指定则加载默认的 conf/nginx.con 文件（此文件可在在编译安装 nginx 前执行 configure 来配置文件位置）
+	3. 查询 nginx 进程：# ps aux|grep nginx
+	4. 停止 nginx：# sbin/nginx -s stop 或者 # sbin/nginx -s quit
+		a. stop：快速停止，直接杀死进程
+        b. quit：等待 nginx 的进程任务处理完毕后停止
