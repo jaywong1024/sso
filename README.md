@@ -64,7 +64,7 @@ Nginx Session 共享（关联）
 
 - 使用 nginx 中的 ip_hash 技术，将某个 ip 发来的请求定向到同一台服务器上，这样一来这个 ip 下的某个客户端和某一台服务器就能建立稳固的 session
 - 因为仅仅能用 ip 这个因子来分配后端服务器，因此 ip_hash 是有缺陷的，不能在以下情况使用：
-    - nginx 不是最前端的服务器：ip_hash 要求 nginx 一定是最前端的服务器，否则 nginx 得不到正确的 ip 地址，就不能根据 ip 作为引子进行 hash
+    - nginx 不是最前端的服务器：ip_hash 要求 nginx 一定是最前端的服务器，否则 nginx 得不到正确的 ip 地址，就不能根据 ip 作为因子进行 hash
     - nginx 的后端还有其他方式负载均衡：假如 nginx 后端还有其他的负载均衡，将请求通过另外的方式进行分流了，那么某个客户端的请求就不能定位在同一台 session 应用服务器上
 
 ### 正向代理
@@ -143,7 +143,7 @@ Nginx Session 共享（关联）
 
 #### 例如：
 
-    // 添加 upstream 模块
+    // 添加 upstream 模块
     upstream iphash.test.com {
 	    server 192.168.1.100:8080;
 	    server 192.168.1.101:8080;
