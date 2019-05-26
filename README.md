@@ -57,14 +57,23 @@ Spring Session 共享（spring-session）
 
 在客户端向服务器发起请求和服务器响应请求时，向 Session 中写入或者获取 Attribute，倘若数据库中成功写入 Attribute 或者从数据库中获取的 Attribute 是与另一个系统同步的，那么 Spring Session 就算共享成功啦
 
-Nginx Session 共享
+Nginx Session 共享（关联）
 ---
 
+### 方案
+
+- 使用 nginx 中的 ip_hash 技术，将某个 ip 发来的请求定向到同一台服务器上，这样一来这个 ip 下的某个客户端和某一台服务器就能建立稳固的 session
+- ip_hash 是一个简单的技术，但因为仅仅能用 ip 这个因子来分配后端服务器，因此 ip_hash 是有缺陷的，不能在以下情况使用：
+    - nginx 不是最前端的服务器：ip_hash 要求 nginx 一定是最前端的服务器，否则 nginx 得不到正确的 ip 地址，就不能根据 ip 作为引子进行 hash
+    - nginx 的后端还有其他方式负载均衡：假如 nginx 后端还有其他的负载均衡，将请求通过另外的方式进行分流了，那么某个客户端的请求就不能定位在同一台 session 应用服务器上
+
 ### 正向代理
+
 - 正向代理，意思是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端
 - 客户端才能使用正向代理，例如：VPN
 
 ### 反向代理
+
 - 在计算机网络中，反向代理是代理服务器的一种
 - 服务器根据客户端的请求，从其关联的一组或多组后端服务器（如Web服务器）上获取资源，然后再将这些资源返回给客户端，客户端只会得知反向代理的IP地址，而不知道在代理服务器后面的服务器簇的存在
 
@@ -115,6 +124,7 @@ Nginx Session 共享
     6. 安装：将编译完成后的可执行文件运行并安装，形成一个可运行应用程序 #make install
     
 #### 启动和停止
+
 	1. Nginx 在安装成功后，在安装位置下有三个文件夹
 		a. sbin 文件夹存放可执行文件
 		b. html 文件夹存放 nginx 提供的静态页面
@@ -127,4 +137,29 @@ Nginx Session 共享
 		a. stop：快速停止，直接杀死进程
 		b. quit：等待 nginx 的进程任务处理完毕后停止
 		
-### 配置
+### 实现（配置 upstream 模块）
+- 先在安装目录 /nginx 打开 nginx 配置文件进行编辑 # vim conf/nginx.conf
+- 然后在 http{} 标签内添加 upstream 模块，upstream 默认算法是权重轮巡 wwr（weighted round-robin），这里为了解决 session 共享问题我们需要使用 ip_hash 模式分配
+
+#### 例如：
+
+    // 添加 upstream 模块
+    upstream iphash.test.com {
+	    server 192.168.1.100:8080;
+	    server 192.168.1.101:8080;
+	    ip_hash; //如果不添加 ip_hash 则使用默认算法 wwr
+    }
+    // 在 server{} 中将 server_name 属性修改为 iphash.test.com
+    server {
+        server_name=iphash.test.com;
+    }
+    // 在 server{} 内的 location / {} 中添加 proxy_pass http://iphash.test.com
+    server {
+        location / {
+            proxy_pass http://iphash.test.com;
+        }
+    }
+
+### 测试
+
+客户端输入 http://iphash.test.com 对服务器发起请求，如果响应的页面总是同一个服务器上的页面则代表 ip_hash 成功，此 ip 地址下的客户端已经和其中的一个服务器关联成功，session 绑定在这个服务器上
