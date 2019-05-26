@@ -117,4 +117,6 @@ Nginx Session 共享
 	3. 查询 nginx 进程：# ps aux|grep nginx
 	4. 停止 nginx：# sbin/nginx -s stop 或者 # sbin/nginx -s quit
 		a. stop：快速停止，直接杀死进程
-        b. quit：等待 nginx 的进程任务处理完毕后停止
+		b. quit：等待 nginx 的进程任务处理完毕后停止
+		
+### 配置
