@@ -20,15 +20,12 @@ public class JWTUsers {
 
     public static boolean isLogin(String username, String password) {
         if (null == username || 0 == username.trim().length()) {
-            System.out.println('f');
             return false;
         }
         String psw = USERS.get(username);
         if (null == psw || !psw.equals(password)) {
-            System.out.println('f');
             return false;
         }
-        System.out.println('t');
         return true;
     }
 
