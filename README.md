@@ -220,3 +220,5 @@ Token 机制
 	4. Signature 签名：这是一个由开发者提供的信息，先将加密后的 Header 和 Payload 使用 "." 连接起来，然后再次进行加密就可以得到最终结果。Signature 是服务器验证传递的数据安全有效的标准
 
 ### JWT 执行流程
+
+![JWT 执行流程](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg)
