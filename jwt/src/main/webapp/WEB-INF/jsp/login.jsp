@@ -15,7 +15,7 @@
         <form action="" method="post">
             username: <input type="text" name="username" id="username">
             password: <input type="text" name="password" id="password">
-            <input type="submit" value="登录" id="submit_login">
+            <button id="submit_login">登录</button>
         </form>
         <h3>测试 Token 有效性</h3>
         <button id="button_test_localStorage">Test LocalStorage</button>

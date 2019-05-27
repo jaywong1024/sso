@@ -23,7 +23,7 @@ public class JWTUsers {
             System.out.println('f');
             return false;
         }
-        String psw = USERS.get("username");
+        String psw = USERS.get(username);
         if (null == psw || !psw.equals(password)) {
             System.out.println('f');
             return false;
