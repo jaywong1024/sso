@@ -97,7 +97,7 @@ public class JWTUtils {
             checkResult.setErrorCode(JWT_ERRORCODE_EXPIRE);
             checkResult.setSuccess(false);
         } catch (SignatureException e) {
-//            token 签名失效
+//            token 签名失效，校验失败
             checkResult.setErrorCode(JWT_ERRORCODE_FAIL);
             checkResult.setSuccess(false);
         } catch (Exception e) {

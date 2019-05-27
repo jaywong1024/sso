@@ -59,14 +59,18 @@ public class JWTController {
         if (jwtResult.isSuccess()) {
             jwtResponseData.setCode(200);
             jwtResponseData.setData(jwtResult.getClaims().getSubject());
-//            返回一个新的 Token令牌
+//            返回一个新的 Token令牌，重置 Token令牌的有效期
             String newToken = JWTUtils.createJWT(jwtResult.getClaims().getId(), jwtResult.getClaims().getIssuer(),
                     jwtResult.getClaims().getSubject(), (1 * 60 * 1000));
             jwtResponseData.setToken(newToken);
             return jwtResponseData;
         } else {
-            jwtResponseData.setCode(500);
-            jwtResponseData.setMessage("用户未登录");
+            jwtResponseData.setCode(jwtResult.getErrorCode());
+            if (1005 == jwtResult.getErrorCode()) {
+                jwtResponseData.setMessage("Token令牌 已过期，请重新登陆");
+            } else if (1006 == jwtResult.getErrorCode()) {
+                jwtResponseData.setMessage("签名失效或其他错误，请重新登陆");
+            }
             return jwtResponseData;
         }
     }

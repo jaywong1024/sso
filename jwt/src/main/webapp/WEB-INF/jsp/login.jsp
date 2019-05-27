@@ -23,18 +23,39 @@
     <script>
         $(function () {
             $('#submit_login').click(function () {
-                // $.post('/login', {
-                //     username: $('#username').val(),
-                //     password: $('#password').val()
-                // }, function (result) {
-                //     console.log(result);
-                // });
-                alert('login');
+                $.post('/login', {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                }, function (result) {
+                    console.log(result);
+                    if (200 === result.code) {
+                        // 将 token 存放到 localStorage 中
+                        // 可以在浏览器的开发者工具中的 Application 查看 LocalStorage
+                        window.localStorage.token = result.token;
+                    }
+                    alert(result.message);
+                });
             });
             $('#button_test_localStorage').click(function () {
-                alert('test');
+                $.ajax({
+                    url : '/validateJWT',
+                    success : function (result) {
+                        console.log(result);
+                        if (200 === result.code) {
+                            // 将 token 存放到 localStorage 中
+                            // 可以在浏览器的开发者工具中的 Application 查看 LocalStorage
+                            window.localStorage.token = result.token;
+                        }
+                        alert(result.message);
+                    },
+                    beforeSend : setHeader
+                });
             });
         });
+        
+        function setHeader(xhr) {
+            xhr.setRequestHeader('Authorization', window.localStorage.token);
+        }
     </script>
 </body>
 </html>
