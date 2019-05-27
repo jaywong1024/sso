@@ -52,7 +52,11 @@
                 });
             });
         });
-        
+
+        /**
+         * 将 Token令牌放入请求头的 Authorization 中
+         * @param xhr
+         */
         function setHeader(xhr) {
             xhr.setRequestHeader('Authorization', window.localStorage.token);
         }
