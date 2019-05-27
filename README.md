@@ -189,7 +189,7 @@ Token 机制
 - 客户端每次向服务端请求资源时都需要带着服务端签发的 Token
 - 服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
 
-JSON WEB TOKEN（JWT）机制
+JSON WEB TOKEN（JWT）机制（jwt）
 ---
 
 ### JWT 简介
