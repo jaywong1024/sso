@@ -20,6 +20,7 @@ public class JWTController {
     @ResponseBody
     @PostMapping(value = "/login")
     public Object login(String username, String password) {
+        System.out.println("JWTController.login: " + username + ", " + password);
         JWTResponseData jwtResponseData = null;
 //        校验账号密码，这里使用的是 JWTUsers 静态数据来模拟数据库
         if (JWTUsers.isLogin(username, password)) {
@@ -50,6 +51,7 @@ public class JWTController {
     @ResponseBody
     @PostMapping(value = "/validateJWT")
     public Object validateJWT(HttpServletRequest request) {
+        System.out.println("JWTController.validateJWT");
 //        获取客户端携带的 Token令牌
         String token = request.getHeader("Authorization");
 //        校验 Token令牌
