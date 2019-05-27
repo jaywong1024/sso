@@ -39,6 +39,7 @@
             $('#button_test_localStorage').click(function () {
                 $.ajax({
                     url : '/validateJWT',
+                    type: 'POST',
                     success : function (result) {
                         console.log(result);
                         if (200 === result.code) {
