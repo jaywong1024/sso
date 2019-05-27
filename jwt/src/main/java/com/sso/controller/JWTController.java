@@ -65,6 +65,7 @@ public class JWTController {
             String newToken = JWTUtils.createJWT(jwtResult.getClaims().getId(), jwtResult.getClaims().getIssuer(),
                     jwtResult.getClaims().getSubject(), (1 * 60 * 1000));
             jwtResponseData.setToken(newToken);
+            jwtResponseData.setMessage("Token令牌有效");
             return jwtResponseData;
         } else {
             jwtResponseData.setCode(jwtResult.getErrorCode());

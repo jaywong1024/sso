@@ -12,11 +12,9 @@
 <body>
     <div>
         <h3>登录测试</h3>
-        <form action="" method="post">
-            username: <input type="text" name="username" id="username">
-            password: <input type="text" name="password" id="password">
-            <button id="submit_login">登录</button>
-        </form>
+        username: <input type="text" name="username" id="username">
+        password: <input type="text" name="password" id="password">
+        <button id="submit_login">登录</button>
         <h3>测试 Token 有效性</h3>
         <button id="button_test_localStorage">Test LocalStorage</button>
     </div>
