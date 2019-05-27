@@ -224,4 +224,4 @@ JSON WEB TOKEN（JWT）机制
 
 ### JWT 执行流程
 
-![JWT 执行流程](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg)
+![JWT 执行流程](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg)
