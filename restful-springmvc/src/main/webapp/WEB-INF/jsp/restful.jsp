@@ -33,7 +33,7 @@
     <script>
         let id, username;
         $(function () {
-            sel();
+            selAll();
             $('#insert').click(function () {
                 regain();
                 ins(id, username);
@@ -50,7 +50,7 @@
                 regain();
                 sel(id);
             });
-            $('#reset').click(sel);
+            $('#reset').click(selAll);
         });
         function regain() {
             id = $('#id').val();
@@ -107,7 +107,7 @@
             });
             // alert('select');
         }
-        function sel() {
+        function selAll() {
             $.ajax({
                 url: '/user',
                 type: 'get',
