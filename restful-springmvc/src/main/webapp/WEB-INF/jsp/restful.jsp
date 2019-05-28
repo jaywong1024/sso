@@ -91,6 +91,7 @@
                     username: username
                 }, success(result) {
                     alert(result);
+
                 }
             });
             // alert('update');
