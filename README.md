@@ -341,3 +341,8 @@ Restful 接口设计
 |503|服务器过载或暂停维修，宕机|
 |504|关口过载，服务器使用另一个关口或服务来响应用户，等待时间设定值较长|
 |505|服务器不支持或拒绝支请求头中指定的HTTP版本|
+
+### Spring MVC 使用 Restful 实例
+
+[查看代码](https://github.com/ChinesePowerful/sso/tree/master/restful-springmvc)
+
