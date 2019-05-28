@@ -255,3 +255,36 @@ JSON WEB TOKEN（JWT）机制
 Restful 接口设计
 ---
 
+### Rest 简述
+
+- REST（英文：Representational State Transfer，简称 REST）描述了一个架构样式的网络系统，比如 web 应用程序。它首次出现在是在 2000 年时 RoyFielding 博士的论文中，他是 HTTP 规范的主要编写者之一。
+- 在目前主流的三种 web 服务交互方案中，REST 相比于 SOAP（Simple Object Access Protocol，简单对象访问协议）以及 XML-RPC 更加简单明了，无论是对 URL 的处理还是对 Payload 的编码，REST 都倾向于用更加简单轻量的方法设计和实现。值得注意的是 REST 并没有一个明确的标准，而更像是一种设计的风格
+
+### Restful 简述
+
+- Restful 对应的中文意思是 “rest 方式的、rest 风格的”
+- Restful Web Service 是一种常见的 rest 的应用，是准守了 rest 风格的 web 服务，rest 风格的 web 服务是一种 ROA（The Resource-Oriented Architecture，面向“服务”资源的架构）
+
+### 普通架构
+
+普通架构每次请求的接口或者地址，都在做描述。例如查询的时候使用了 query，新增的时候用了 save
+
+	1. http://127.0.0.1:8080/user/query/1 GET 请求，根据用户 id 查询用户信息
+    2. http://127.0.0.1:8080/user POST 请求，新增用户
+    
+### Restful 架构
+    
+在 Restful 架构中，使用 GET 请求，就是查询；使用 POST请求，就是新增的请求，意图明显，没有做多余的描述
+    	
+    1. http://127.0.0.1/user/1 GET 请求，根据用户 id 查询用户数据
+    2. http://127.0.0.1/user POST 请求，新增用户
+    
+### Restful 操作方式
+    
+|文件夹|说明|
+|--|--|
+|ZBConfigCommon/ |主要基础代码工程。|
+|ZbConfigMain/ |主APP工程|
+|ZbConfigSetup/ |安装向导，已不再提供 |
+|DB/ |用于测试数据库文件夹，默认密码为admin/admin|
+|res/ |零碎的参考资源|
