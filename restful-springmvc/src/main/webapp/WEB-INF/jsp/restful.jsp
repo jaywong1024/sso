@@ -28,6 +28,7 @@
     <button id="delete">删除</button>
     <button id="update">修改</button>
     <button id="select">查询</button>
+    <button id="reset">刷新</button>
 
     <script>
         let id, username;
@@ -36,23 +37,20 @@
             $('#insert').click(function () {
                 regain();
                 ins(id, username);
-                sel();
             });
             $('#delete').click(function () {
                 regain();
                 del(id);
-                sel();
             });
             $('#update').click(function () {
                 regain();
                 upd(id, username);
-                sel();
             });
             $('#select').click(function () {
                 regain();
                 sel(id);
-                sel();
             });
+            $('#reset').click(sel);
         });
         function regain() {
             id = $('#id').val();
@@ -88,10 +86,10 @@
             $.ajax({
                 url: '/user',
                 type: 'put',
-                data: JSON.stringify({
+                data: {
                     id: id,
                     username: username
-                }), success(result) {
+                }, success(result) {
                     alert(result);
                 }
             });

@@ -98,16 +98,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        System.out.println("addUser" + user);
+    public ResponseEntity<String> addUser(Integer id, String username) {
         try {
-            if (null != USERS.get(user.getId())) {
+            if (null != USERS.get(id)) {
 //                用户主键 id 已存在，响应 409
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("id is conflict");
             }
-            USERS.put(user.getId(), user.getUsername());
+            USERS.put(id, username);
 //            添加用户成功，响应 201
-            return ResponseEntity.status(HttpStatus.CREATED).body("insert user success: " + user.toString());
+            return ResponseEntity.status(HttpStatus.CREATED).body("insert user success");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,15 +115,15 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<String> editUser(@RequestBody User user) {
+    public ResponseEntity<String> editUser(Integer id, String username) {
         try {
-            if (null == USERS.get(user.getId())) {
+            if (null == USERS.get(id)) {
 //                资源不存在，响应 404
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             } else {
-                USERS.put(user.getId(), user.getUsername());
+                USERS.put(id, username);
 //                没有要返回的数据，响应 204
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("update user success: " + user.toString());
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("update user success");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,11 +137,11 @@ public class UserController {
         try {
             if (id == 0) {
 //                传入参数有错，响应 400
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("input param is error");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             } else {
                 USERS.remove(id);
 //                没有要返回的数据，响应 204
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("delete user by id = " + id + " , is success");
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
         } catch (Exception e) {
             e.printStackTrace();
