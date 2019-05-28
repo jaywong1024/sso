@@ -189,7 +189,7 @@ Token 机制
 - 客户端每次向服务端请求资源时都需要带着服务端签发的 Token
 - 服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
 
-JSON WEB TOKEN（JWT）机制（jwt）
+JSON WEB TOKEN（JWT）机制
 ---
 
 ### JWT 简介
@@ -225,3 +225,28 @@ JSON WEB TOKEN（JWT）机制（jwt）
 ### JWT 执行流程
 
 ![JWT 执行流程](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png)
+
+基于 JWT 机制的单点登录（jwt）
+---
+
+### 实现
+
+[查看代码](https://github.com/ChinesePowerful/sso/tree/master/jwt)
+
+### 注意
+
+- 使用 JWT 实现单点登录时，需要注意 Token 的有效性。Token 是保存在客户端的令牌数据，如果永久有效，则有被劫持的可能
+- Token 在设计的时候，可以考虑一次性或一段时间内有效。如果设置有效时长，则需要考虑是否要刷新 Token 的有效期问题
+
+### Token 的保存位置
+
+- 使用 JWT 技术生成的 Token，客户端在保存的时候可以考虑 Cookie 或 LocalStorage
+- Cookie 保存方式可以实现跨域传递数据，LocalStorage 是域私有的本地存储，无法实现跨域
+- 建议仅使用 Cookie 做数据的存储，而不是数据的传递。在传递 Token令牌时建议将其放入 Header 中的 Authorization 中
+
+### WebStorage
+
+- WebStorage 可保存的数据容量为 5M，且只能存储字符串数据
+- WebStorage 分为 LocalStorage 和 SessionStorage
+- LocalStorage 的生命周期是永久的，关闭页面或浏览器之后 LocalStorage 中的数据也不会消失。LocalStorage除非主动删除数据，否则数据是永久保存的
+- SessionStorage 是会话相关的本地存储单元，生命周期是仅在当前会话有效。SessionStorage 引入了一个“浏览器窗口”的概念，SessionStorage 是在同源的窗口中始终存在的数据，只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源的另一个页面，数据依然存在。但是 SessionStorage 在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，SessionStorage 也是不一样的

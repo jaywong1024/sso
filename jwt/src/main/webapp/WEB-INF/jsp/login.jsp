@@ -54,7 +54,7 @@
 
         /**
          * 将 Token令牌放入请求头的 Authorization 中
-         * @param xhr
+         * @param xhr XmlHttpRequest
          */
         function setHeader(xhr) {
             xhr.setRequestHeader('Authorization', window.localStorage.token);
