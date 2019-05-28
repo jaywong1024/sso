@@ -249,4 +249,8 @@ JSON WEB TOKEN（JWT）机制
 - WebStorage 可保存的数据容量为 5M，且只能存储字符串数据
 - WebStorage 分为 LocalStorage 和 SessionStorage
 - LocalStorage 的生命周期是永久的，关闭页面或浏览器之后 LocalStorage 中的数据也不会消失。LocalStorage除非主动删除数据，否则数据是永久保存的
-- SessionStorage 是会话相关的本地存储单元，生命周期是仅在当前会话有效。SessionStorage 引入了一个“浏览器窗口”的概念，SessionStorage 是在同源的窗口中始终存在的数据，只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源的另一个页面，数据依然存在。但是 SessionStorage 在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，SessionStorage 也是不一样的
+- SessionStorage 是会话相关的本地存储单元，生命周期是仅在当前会话有效
+- SessionStorage 引入了一个“浏览器窗口”的概念，SessionStorage 是在同源的窗口中始终存在的数据，只要这个浏览器窗口没有关闭，即使刷新页面或者进入同源的另一个页面，数据依然存在。但是 SessionStorage 在关闭了浏览器窗口后就会被销毁。同时独立的打开同一个窗口同一个页面，SessionStorage 也是不一样的
+
+Restful 接口设计
+---
