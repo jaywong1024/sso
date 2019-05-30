@@ -88,7 +88,7 @@ public class JWTUtils {
         Claims claims = null;
         try {
             claims = parseJWT(jwt);
-//            没有错误信息代表校验后才能给
+//            没有错误信息代表校验成功
             checkResult.setSuccess(true);
 //            被校验的 jwt 中的 Payload 数据
             checkResult.setClaims(claims);
