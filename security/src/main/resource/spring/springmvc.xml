@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 将 SpringMVC 不能处理的请求交给 Tomcat，使得可以访问静态文件 -->
+    <mvc:default-servlet-handler/>
+
+    <context:component-scan base-package="com.sso.controller"/>
+
+    <!-- 为 Spring基础容器 开启注解配置信息 -->
+    <context:annotation-config/>
+    <!-- 为 SpringMVC 配置注解驱动 -->
+    <mvc:annotation-driven/>
+
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 用于提供 HttpSession 数据持久化操作的 Bean对象 -->
+    <!-- 对象定义后，可以实现数据库相关操作配置，自动实现 HttpSession 数据的持久化操作（CRUD） -->
+    <bean class="org.springframework.session.jdbc.config.annotation.web.http.JdbcHttpSessionConfiguration"/>
+
+    <!-- 数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springsession?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="jq20170216"/>
+    </bean>
+
+    <!-- 为 HttpSessionConfiguration 提供的事务管理器 -->
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+</beans>
