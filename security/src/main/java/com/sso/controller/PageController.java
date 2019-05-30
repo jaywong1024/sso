@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
-    @RequestMapping(value = "/des")
+    @RequestMapping(value = "/")
     public String des() {
         return "des";
     }

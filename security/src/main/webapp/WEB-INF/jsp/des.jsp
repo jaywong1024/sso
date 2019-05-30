@@ -5,6 +5,7 @@
     <script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.js"></script>
     <script type="text/javascript" src="/js/core.js"></script>
     <script type="text/javascript" src="/js/cipher-core.js"></script>
+    <script type="text/javascript" src="/js/enc-base64.js"></script>
     <script type="text/javascript" src="/js/mode-ecb.js"></script>
     <script type="text/javascript" src="/js/tripledes.js"></script>
     <style>
@@ -14,10 +15,39 @@
     </style>
 </head>
 <body>
-    <button id="create_uuid">创建UUID</button>
+    <h3>测试</h3>
+    <button id="create_uuid">创建UUID测试</button>
+    <button id="crypt_by_DES">加密解密测试</button>
+    <h3>对接测试</h3>
+    username: <input type="text" id="username">
+    password: <input type="text" id="password">
+    <button id="docking">对接</button>
+
     <script>
         $('#create_uuid').click(function () {
             console.log(uuid());
+        });
+        $('#crypt_by_DES').click(function () {
+            var data = '嘤嘤嘤';
+            var key = uuid();
+            console.log('明文数据: ' + data + ', 密钥: ' + key);
+            var ciphertext = encryptByDES(data, key);
+            console.log('加密后的密文数据: ' + ciphertext);
+            var result = decryptByDES(ciphertext, key);
+            console.log('密文再解密: ' + result);
+        });
+        $('#docking').click(function () {
+            var data = $('#username').val() + ", " + $('#password').val();
+            var key = uuid();
+            $.ajax({
+                url: '/des',
+                type: 'post',
+                data:{
+                    ciphertext: encryptByDES(data, key)
+                }, success(result) {
+                    console.log('打印服务端返回的已解密明文: ' + result);
+                }, beforeSend: setHeader(xhr, key)
+            })
         });
         /**
          * 创建一个 uuid
@@ -42,13 +72,13 @@
          * 加密函数
          * @param data 明文（数据源）
          * @param key 密钥
-         * @returns 密文
+         * @returns {string}密文
          */
         function encryptByDES(data, key) {
         //    解析密钥为字节数据，将密钥转换为16进制数据
             var keyHex = CryptoJS.enc.Utf8.parse(key);
         //    创建 DES 加密工具（构建器）
-            var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            var encrypted = CryptoJS.DES.encrypt(data, keyHex, {
             //    加密模式
                 mode: CryptoJS.mode.ECB,
             //    加密的填充模式
@@ -57,18 +87,31 @@
         //    加密，并获取加密后的密文数据
             return encrypted.toString();
         }
-        function decryptByDES(encryptedText, key) {
+
+        /**
+         * 解密函数
+         * @param ciphertext 密文数据
+         * @param key 密钥
+         * @returns {string}明文数据
+         */
+        function decryptByDES(ciphertext, key) {
         //    解析密钥为字节数据，将密钥转换为16进制数据
             var keyHex = CryptoJS.enc.Utf8.parse(key);
         //    创建 DES 解密工具
             var decrypted = CryptoJS.DES.decrypt({
-                ciphertext: CryptoJS.enc.Base64.parse(encryptedText)
+            //    将密文解析成可解密的字节数据
+                ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
             }, keyHex, {
                 //    加密模式
                 mode: CryptoJS.mode.ECB,
                 //    加密的填充模式
                 padding: CryptoJS.pad.Pkcs7
-            })
+            });
+        //    解密，并获取解密后的明文数据
+            return decrypted.toString(CryptoJS.enc.Utf8);
+        }
+        function setHeader(xhr, key) {
+            xhr.setRequestHeader('key', key);
         }
     </script>
 </body>
