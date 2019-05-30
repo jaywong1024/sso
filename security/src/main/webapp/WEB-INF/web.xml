@@ -66,7 +66,8 @@
     <servlet-name>security</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <!--&lt;!&ndash; 7. 使用 Rest 风格 URL，将 post请求 转为指定的 put or delete 请求&ndash;&gt;-->
+
+  <!-- 7. 使用 Rest 风格 URL，将 post请求 转为指定的 put or delete 请求-->
   <!--<filter>-->
   <!--<filter-name>HiddenHttpMethodFilter</filter-name>-->
   <!--<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>-->
@@ -75,13 +76,14 @@
   <!--<filter-name>HiddenHttpMethodFilter</filter-name>-->
   <!--<url-pattern>/*</url-pattern>-->
   <!--</filter-mapping>-->
-  <!--&lt;!&ndash; 8. 解决 put请求 没有将数据体封装为 map &ndash;&gt;-->
-  <!--<filter>-->
-  <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
-  <!--<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>-->
-  <!--</filter>-->
-  <!--<filter-mapping>-->
-  <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
-  <!--<url-pattern>/*</url-pattern>-->
-  <!--</filter-mapping>-->
+
+  <!-- 8. 解决 put请求 没有将数据体封装为 map -->
+  <filter>
+  <filter-name>HttpPutFormContentFilter</filter-name>
+  <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  <filter-name>HttpPutFormContentFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

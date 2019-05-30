@@ -23,21 +23,4 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 用于提供 HttpSession 数据持久化操作的 Bean对象 -->
-    <!-- 对象定义后，可以实现数据库相关操作配置，自动实现 HttpSession 数据的持久化操作（CRUD） -->
-    <bean class="org.springframework.session.jdbc.config.annotation.web.http.JdbcHttpSessionConfiguration"/>
-
-    <!-- 数据源 -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/springsession?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
-        <property name="username" value="root"/>
-        <property name="password" value="jq20170216"/>
-    </bean>
-
-    <!-- 为 HttpSessionConfiguration 提供的事务管理器 -->
-    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
 </beans>
