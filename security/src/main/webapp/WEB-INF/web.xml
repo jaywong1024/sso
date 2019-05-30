@@ -15,25 +15,19 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
-  <!-- 数据转换拦截器 -->
-  <filter>
-    <filter-name>springSessionRepositoryFilter</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSessionRepositoryFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
-  <!--&lt;!&ndash; 2. 加载 Spring 容器配置文件 &ndash;&gt;-->
-  <!--<listener>-->
-  <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-  <!--</listener>-->
-  <!--&lt;!&ndash; 3. 防止Spring内存溢出监听器 &ndash;&gt;-->
-  <!--<listener>-->
-  <!--<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>-->
-  <!--</listener>-->
+  <!-- 1. 加载 Spring 容器 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/applicationContext-*.xml</param-value>
+  </context-param>
+  <!-- 2. 加载 Spring 容器配置文件 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 3. 防止Spring内存溢出监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
   <!-- 4. 解决工程编码过滤器 -->
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -61,13 +55,12 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  <!-- 6. 为 security 建立映射 -->
+  <!-- 6. 为 restful-springmvc 建立映射 -->
   <servlet-mapping>
     <servlet-name>security</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
-  <!-- 7. 使用 Rest 风格 URL，将 post请求 转为指定的 put or delete 请求-->
+  <!--&lt;!&ndash; 7. 使用 Rest 风格 URL，将 post请求 转为指定的 put or delete 请求&ndash;&gt;-->
   <!--<filter>-->
   <!--<filter-name>HiddenHttpMethodFilter</filter-name>-->
   <!--<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>-->
@@ -77,13 +70,23 @@
   <!--<url-pattern>/*</url-pattern>-->
   <!--</filter-mapping>-->
 
-  <!-- 8. 解决 put请求 没有将数据体封装为 map -->
+  <!-- 因为 PUT请求默认是不处理请求体的，所以需要编写一个过滤器专门用于处理 PUT 请求中请求体传递的请求参数 -->
   <filter>
-  <filter-name>HttpPutFormContentFilter</filter-name>
-  <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    <filter-name>httpPutFormContentFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
   </filter>
   <filter-mapping>
-  <filter-name>HttpPutFormContentFilter</filter-name>
-  <url-pattern>/*</url-pattern>
+    <filter-name>httpPutFormContentFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
+
+  <!-- 8. 解决 put请求 没有将数据体封装为 map -->
+  <!--<filter>-->
+  <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
+  <!--<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+  <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
+  <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
 </web-app>
