@@ -411,4 +411,4 @@ Restful 接口设计
 - 定义：数字签名算法要求能够验证数据完整性、认证数据来源，并起到抗否认的作用
 - 原理：签名时使用私钥和待签名数据，验证时则需要使用公钥、签名值和已签名数据
 
-![数字签名](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png)
+![数字签名](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D.png)
