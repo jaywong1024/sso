@@ -407,5 +407,8 @@ Restful 接口设计
     - ECDSA，椭圆曲线数字签名算法，是使用椭圆曲线密码（ECC）对数字签名算法（DSA）的模拟
     
 #### 数字签名
+
 - 定义：数字签名算法要求能够验证数据完整性、认证数据来源，并起到抗否认的作用
 - 原理：签名时使用私钥和待签名数据，验证时则需要使用公钥、签名值和已签名数据
+
+![数字签名](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/JWT%20%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png)
