@@ -18,10 +18,12 @@
     <h3>测试</h3>
     <button id="create_uuid">创建UUID测试</button>
     <button id="crypt_by_DES">加密解密测试</button>
-    <h3>对接测试</h3>
-    username: <input type="text" id="username">
-    password: <input type="text" id="password">
-    <button id="docking">对接</button>
+    <h3>登录测试</h3>
+    <p>数据库后台只有一个用户，username: admin, password: 12345</p>
+    <p>如果数据库解密并且验证用户名密码正确则返回登录成功，否者返回登录失败</p>
+    username: <input type="text" id="username" value="admin">
+    password: <input type="text" id="password" value="12345">
+    <button id="docking">登录</button>
 
     <script>
         $('#create_uuid').click(function () {
@@ -36,19 +38,44 @@
             var result = decryptByDES(ciphertext, key);
             console.log('密文再解密: ' + result);
         });
-        $('#docking').click(function () {
+        $('#docking').click(useDefaultKey);
+
+    //    使用随机秘钥向后端发送请求，发送请求时将秘钥放在请求头中
+        function useUUID() {
             var data = $('#username').val() + ", " + $('#password').val();
+        //    使用随机秘钥，发送请求时将秘钥放在请求头中
             var key = uuid();
             $.ajax({
                 url: '/des',
                 type: 'post',
                 data:{
+                //    传递密文数据
                     ciphertext: encryptByDES(data, key)
                 }, success(result) {
-                    console.log('打印服务端返回的已解密明文: ' + result);
-                }, beforeSend: setHeader(xhr, key)
+                    console.log('打印服务端响应密文数据: ' + result.ciphertext);
+                    console.log('解密后: ' + decryptByDES(result.ciphertext, key));
+                },
+            //    将秘钥写入请求头中
+                beforeSend: setHeader(xhr, key)
             })
-        });
+        }
+        function useDefaultKey() {
+            var data = $('#username').val() + ", " + $('#password').val();
+        //    不使用随机秘钥，使用前后端双方约定好的秘钥
+        //    var key = uuid();
+            var key = 'huang-han-jie';
+            $.ajax({
+                url: '/des',
+                type: 'post',
+                data:{
+                //    传递密文数据
+                    ciphertext: encryptByDES(data, key)
+                }, success(result) {
+                    console.log('打印服务端响应密文数据: ' + result.ciphertext);
+                    console.log('解密后: ' + decryptByDES(result.ciphertext, key));
+                }
+            })
+        }
         /**
          * 创建一个 uuid
          * @returns uuid
@@ -110,9 +137,16 @@
         //    解密，并获取解密后的明文数据
             return decrypted.toString(CryptoJS.enc.Utf8);
         }
+
+        /**
+         * 将 key 放入请求头
+         * @param xhr XmlHttpRequest
+         * @param key 秘钥
+         */
         function setHeader(xhr, key) {
             xhr.setRequestHeader('key', key);
         }
+
     </script>
 </body>
 </html>
