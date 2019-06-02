@@ -2,14 +2,51 @@ package com.sso.utils;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
 public class DesCrypt {
 
 //    与客户端对应的密钥，一般存放在数据库或本地文件中
-    private static final String KEY = "huang-han-jie";
+    private static final String KEY = getKey("security/src/main/resource/conf/des.conf");
 
     private static final String DES_ALGORITHM = "DES";
+
+    /**
+     * 获取密钥
+     * @param sourcePath 密钥文件位置
+     * @return 密钥
+     */
+    private static String getKey(String sourcePath) {
+        String key = "";
+//        数据源
+        File source = new File(sourcePath);
+//        字节流
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(source);
+//            定义字节流长度
+            int len = -1;
+//            每次缓冲 1kb
+            byte[] bytes = new byte[1024];
+            if (-1 != (len = inputStream.read(bytes))) {
+                key += new String(bytes, 0, len, "utf-8");
+            }
+            return key;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     /**
      * 获取 Cipher 对象解密加密时使用的密钥
