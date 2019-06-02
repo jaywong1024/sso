@@ -15,67 +15,16 @@
     </style>
 </head>
 <body>
-    <h3>测试</h3>
-    <button id="create_uuid">创建UUID测试</button>
-    <button id="crypt_by_DES">加密解密测试</button>
-    <h3>登录测试</h3>
-    <p>数据库后台只有一个用户，username: admin, password: 12345</p>
-    <p>如果数据库解密并且验证用户名密码正确则返回登录成功，否者返回登录失败</p>
-    username: <input type="text" id="username" value="admin">
-    password: <input type="text" id="password" value="12345">
-    <button id="docking">登录</button>
 
+    <h3>服务端只有一个用户（username:admin, password:12345）</h3>
+    username: <input type="text" id="username" name="username" value="admin">
+    password: <input type="text" id="password" name="password" value="12345">
+    <button id="login">登录</button>
     <script>
-        $('#create_uuid').click(function () {
-            console.log(uuid());
-        });
-        $('#crypt_by_DES').click(function () {
-            var data = '嘤嘤嘤';
-            var key = uuid();
-            console.log('明文数据: ' + data + ', 密钥: ' + key);
-            var ciphertext = encryptByDES(data, key);
-            console.log('加密后的密文数据: ' + ciphertext);
-            var result = decryptByDES(ciphertext, key);
-            console.log('密文再解密: ' + result);
-        });
-        $('#docking').click(useDefaultKey);
 
-    //    使用随机秘钥向后端发送请求，发送请求时将秘钥放在请求头中
-        function useUUID() {
-            var data = $('#username').val() + ", " + $('#password').val();
-        //    使用随机秘钥，发送请求时将秘钥放在请求头中
-            var key = uuid();
-            $.ajax({
-                url: '/des',
-                type: 'post',
-                data:{
-                //    传递密文数据
-                    ciphertext: encryptByDES(data, key)
-                }, success(result) {
-                    console.log('打印服务端响应密文数据: ' + result.ciphertext);
-                    console.log('解密后: ' + decryptByDES(result.ciphertext, key));
-                },
-            //    将秘钥写入请求头中
-                beforeSend: setHeader(xhr, key)
-            })
-        }
-        function useDefaultKey() {
-            var data = $('#username').val() + ", " + $('#password').val();
-        //    不使用随机秘钥，使用前后端双方约定好的秘钥
-        //    var key = uuid();
-            var key = 'huang-han-jie';
-            $.ajax({
-                url: '/des',
-                type: 'post',
-                data:{
-                //    传递密文数据
-                    ciphertext: encryptByDES(data, key)
-                }, success(result) {
-                    console.log('打印服务端响应密文数据: ' + result.ciphertext);
-                    console.log('解密后: ' + decryptByDES(result.ciphertext, key));
-                }
-            })
-        }
+    //    与服务端对应的密钥，一般存放在数据库或本地文件中
+        var KEY = 'huang-han-jie';
+
         /**
          * 创建一个 uuid
          * @returns uuid
@@ -97,15 +46,15 @@
 
         /**
          * 加密函数
-         * @param data 明文（数据源）
+         * @param plaintext 明文
          * @param key 密钥
          * @returns {string}密文
          */
-        function encryptByDES(data, key) {
+        function encryptByDES(plaintext, key) {
         //    解析密钥为字节数据，将密钥转换为16进制数据
             var keyHex = CryptoJS.enc.Utf8.parse(key);
         //    创建 DES 加密工具（构建器）
-            var encrypted = CryptoJS.DES.encrypt(data, keyHex, {
+            var encrypted = CryptoJS.DES.encrypt(plaintext, keyHex, {
             //    加密模式
                 mode: CryptoJS.mode.ECB,
             //    加密的填充模式
@@ -147,6 +96,20 @@
             xhr.setRequestHeader('key', key);
         }
 
+    </script>
+    <script>
+        $('#login').click(function () {
+            var plaintext = $('#username').val() + "," + $('#password').val();
+            $.ajax({
+                url: '/des',
+                type: 'post',
+                data: {
+                    ciphertext: encryptByDES(plaintext, KEY)
+                }, success(result) {
+                    alert(decryptByDES(result, KEY));
+                }
+            })
+        });
     </script>
 </body>
 </html>
