@@ -412,3 +412,7 @@ Restful 接口设计
 - 原理：签名时使用私钥和待签名数据，验证时则需要使用公钥、签名值和已签名数据
 
 ![数字签名](https://raw.githubusercontent.com/ChinesePowerful/sso/master/IMG/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D.png)
+
+### DES 实例
+
+[实现代码](https://github.com/ChinesePowerful/sso/tree/master/security)
