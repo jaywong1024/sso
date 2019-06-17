@@ -26,7 +26,7 @@ public class PageController {
         String UserAgent = request.getHeader("User-Agent");
         System.out.println(UserAgent);
         if (UserAgent.contains(IPHONE) || UserAgent.contains(ANDROID)) return 1;
-        else if (UserAgent.contains(MAC_OS) || UserAgent.contains(WINDOWS) || UserAgent.contains(LINUX)) return 2;
+        if (UserAgent.contains(MAC_OS) || UserAgent.contains(WINDOWS) || UserAgent.contains(LINUX)) return 2;
         return -1;
     }
 
